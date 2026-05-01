@@ -1,0 +1,77 @@
+:root {
+  --bg-color: #ECE6DC;
+  --surface-color: rgba(252, 250, 247, 0.96);
+  --surface-solid: #FFFDFB;
+  --text-main: #2F2923;
+  --text-muted: #5F564C;
+  --border-color: rgba(130, 115, 98, 0.35);
+  --accent-color: #B85F45;
+  --accent-hover: #9F4F38;
+  --diff-plus-bg: rgba(72, 128, 86, 0.22);
+  --diff-plus-text: #2F633B;
+  --diff-minus-bg: rgba(180, 70, 70, 0.18);
+  --diff-minus-text: #8F3535;
+  
+  --shadow-soft: 0 4px 12px rgba(120, 110, 100, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  --shadow-hover: 0 8px 24px rgba(120, 110, 100, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+  --shadow-active: 0 2px 6px rgba(120, 110, 100, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  --radius: 12px;
+  
+  --fabric-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Outfit', 'Noto Sans SC', sans-serif;
+  color: var(--text-main);
+  background-color: var(--bg-color);
+  background-image: 
+    var(--fabric-texture), 
+    linear-gradient(90deg, rgba(160, 150, 140, 0.03) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(160, 150, 140, 0.03) 1px, transparent 1px);
+  background-size: auto, 4px 4px, 4px 4px;
+  height: 100vh;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.panel {
+  background: var(--surface-color);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  border-radius: var(--radius);
+}
+.panel::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: var(--fabric-texture);
+  opacity: 0.4;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(180, 170, 160, 0.3); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(180, 170, 160, 0.5); }
+
+/* Common UI */
+.diff-line {
+  font-family: monospace;
+  font-size: 0.85rem;
+  padding: 2px 8px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.diff-line.plus { background: var(--diff-plus-bg); color: var(--diff-plus-text); }
+.diff-line.minus { background: var(--diff-minus-bg); color: var(--diff-minus-text); }
+.diff-line.normal { color: var(--text-muted); }

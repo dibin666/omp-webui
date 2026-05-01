@@ -1,0 +1,234 @@
+.task-tracker-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.task-section {
+  padding: 12px;
+  background: var(--surface-solid);
+  border: 1px dashed var(--border-color);
+  border-radius: 8px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.section-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.task-item, .job-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  padding: 4px 0;
+}
+
+.task-title, .job-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.task-item.completed {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+.task-item.abandoned {
+  color: var(--diff-minus-text);
+  text-decoration: line-through;
+}
+.task-item.in_progress {
+  font-weight: 600;
+}
+
+.task-icon.done { color: var(--accent-color); }
+.task-icon.pending { color: var(--border-color); }
+
+.job-icon.spin {
+  animation: spin 2s linear infinite;
+  color: var(--text-muted);
+}
+.job-icon.done { color: var(--text-muted); }
+.job-icon.error { color: var(--diff-minus-text); }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.relative-container {
+  position: relative;
+}
+
+.job-item.clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+  padding: 4px;
+  margin: -4px;
+}
+.job-item.clickable:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Job Detail Bubble */
+.job-bubble-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 99;
+}
+
+.job-detail-panel {
+  position: fixed;
+  z-index: 100;
+  right: 320px;
+  bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  width: min(360px, calc(100vw - 32px));
+  max-height: min(70vh, 420px);
+  overflow: hidden;
+  background: var(--surface-solid);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 20px rgba(90, 80, 70, 0.15);
+  border-radius: 12px;
+}
+
+.desktop-tracker .job-detail-panel {
+  right: 320px;
+  bottom: 24px;
+}
+
+.desktop-tracker .job-bubble-tail {
+  display: none;
+}
+
+.mobile-tracker .job-detail-panel {
+  left: 16px;
+  right: 16px;
+  bottom: 96px;
+  width: auto;
+  max-height: min(70vh, 420px);
+}
+
+.mobile-tracker .job-bubble-tail {
+  display: none;
+}
+
+.job-header {
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed var(--border-color);
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 12px 12px 0 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.job-header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.job-header-title span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.job-body {
+  padding: 12px 14px;
+  font-family: monospace;
+  font-size: 0.8rem;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.job-logs {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.log-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  line-height: 1.4;
+  color: #626A65;
+  word-break: break-all;
+}
+.log-arrow {
+  margin-top: 2px;
+  flex-shrink: 0;
+  color: var(--accent-color);
+}
+
+.blinking-cursor {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Visibility toggles handled by layout CSS */
+.desktop-tracker {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  overflow: hidden;
+}
+.mobile-tracker {
+  display: none;
+}
+
+.desktop-tracker .todos-section {
+  flex: 1 1 0;
+}
+
+.desktop-tracker .jobs-section {
+  flex: 1 1 0;
+}
+
+@media (max-width: 768px) {
+  .desktop-tracker {
+    display: none;
+  }
+  .mobile-tracker {
+    display: flex;
+    margin-bottom: 12px;
+    /* Optional: Limit height and make scrollable if many tasks */
+    max-height: 200px;
+    overflow-y: auto;
+  }
+}

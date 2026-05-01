@@ -1,0 +1,19 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "omp-webui",
+  "owner": {
+    "name": "dibin666"
+  },
+  "description": "Marketplace for the OMP WebUI plugin.",
+  "plugins": [
+    {
+      "name": "omp-webui",
+      "description": "Loopback WebUI for Oh My Pi chat sessions.",
+      "version": "0.1.0",
+      "source": "./",
+      "category": "development",
+      "tags": ["webui", "chat", "omp"],
+      "homepage": "https://github.com/dibin666/omp-webui"
+    }
+  ]
+}
