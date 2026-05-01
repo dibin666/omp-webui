@@ -2,20 +2,10 @@
 
 `omp-webui` is an installable Oh My Pi extension plugin that serves a local React/Vite WebUI for OMP chat sessions. After installation and OMP restart/reload, type `/webui` in the OMP chat box to open the UI.
 
-This repository is also a self-contained OMP marketplace. The plugin source is the repository root and the catalog lives at `.claude-plugin/marketplace.json`.
-
-## Remote install
+## Install
 
 ```sh
-omp plugin marketplace add dibin666/omp-webui
-omp plugin install omp-webui@omp-webui
-```
-
-Or from inside OMP:
-
-```text
-/marketplace add dibin666/omp-webui
-/marketplace install omp-webui@omp-webui
+omp plugin install omp-webui
 ```
 
 Restart or reload OMP, then run:
@@ -24,19 +14,15 @@ Restart or reload OMP, then run:
 /webui
 ```
 
-## Remote update
+The command starts a `127.0.0.1` server, generates a per-server token, and opens the tokenized URL when `autoOpen` is enabled.
+
+## Update
 
 ```sh
-omp plugin marketplace update omp-webui
-omp plugin upgrade omp-webui@omp-webui
+omp plugin install omp-webui@latest
 ```
 
-Or from inside OMP:
-
-```text
-/marketplace update omp-webui
-/marketplace upgrade omp-webui@omp-webui
-```
+Restart or reload OMP after updating.
 
 ## Local development
 
@@ -47,8 +33,6 @@ omp plugin link .
 ```
 
 Restart or reload OMP, then run `/webui`.
-
-The command starts a `127.0.0.1` server, generates a per-server token, and opens the tokenized URL when `autoOpen` is enabled.
 
 ## Settings
 
@@ -71,6 +55,10 @@ bun run test
 
 `build` runs TypeScript project checks and Vite static output. `test` covers the extension/server helpers.
 
-## Publishing note
+## npm publishing
 
-Marketplace installs copy the plugin repository as-is. Keep `dist/` committed so `/webui` can serve the built frontend without requiring users to run a build step.
+This repository publishes `omp-webui` to npm through `.github/workflows/publish-npm.yml`.
+
+Repository maintainers must configure a GitHub Actions secret named `NPM_TOKEN` with an npm granular access token that can publish `omp-webui`. The workflow runs on published GitHub Releases and can also be started manually with `workflow_dispatch`.
+
+Before creating a release, bump `package.json` to an unpublished version. The workflow fails before publishing if that exact package version already exists on npm.
